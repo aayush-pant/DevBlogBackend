@@ -1,2 +1,2 @@
 # DevBlogBackend
-Backend for a Blogging website
+Backend for my Blogging website using Node.js and Express.js
