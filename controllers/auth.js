@@ -7,7 +7,10 @@ exports.postLogin = (req, res, next) => {
     User.findOne({ email: email })
         .then(user => {
             if (!user) {
-                return res.redirect('/login');
+                return res.json({
+                    ack: 0,
+                    message: "User Not Found."
+                });
             }
             bcrypt
                 .compare(password, user.password)
@@ -19,14 +22,24 @@ exports.postLogin = (req, res, next) => {
                             if (err => {
                                 console.log(err);
                             })
-                                res.redirect('/');
+                                res.json({
+                                    ack: 1,
+                                    message: "Logged In",
+                                    user: user
+                                });
                         });
                     }
-                    res.redirect('/login');
+                    res.json({
+                        ack: 0,
+                        message: "Incorrect Password"
+                    });
                 })
                 .catch(err => {
                     console.log(err);
-                    res.redirect('/login')
+                    res.json({
+                        ack: 0,
+                        message: "Error"
+                    })
                 });
         })
 };
@@ -61,12 +74,17 @@ exports.postSignup = (req, res, next) => {
                 .then(result => {
                     res.json({
                         ack: 1,
-                        message: "User Created"
+                        message: "User Created",
+                        user: result
                     })
                 });
         })
         .catch(err => {
             console.log(err)
+            res.json({
+                ack: 0,
+                message: "Error"
+            })
         })
 }
 

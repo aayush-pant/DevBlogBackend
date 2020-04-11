@@ -47,7 +47,7 @@ app.use(authRoutes)
 mongoose
     .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
-        app.listen(3000);
+        app.listen(3011);
     })
     .catch(err => {
         console.log(err);
